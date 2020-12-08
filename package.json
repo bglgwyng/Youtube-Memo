@@ -1,0 +1,40 @@
+{
+  "name": "youtube-memo",
+  "version": "1.1.0",
+  "description": "Write something watching Youtube videos.",
+  "scripts": {
+    "build": "webpack --config webpack.prod.js",
+    "dev": "webpack --config webpack.dev.js",
+    "watch": "webpack -w --config webpack.dev.js"
+  },
+  "author": "Joe Martella",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chrome": "^0.0.60",
+    "@types/lodash": "^4.14.165",
+    "@types/react": "^16.9.32",
+    "@types/react-dom": "^16.9.6",
+    "@types/resize-observer-browser": "^0.1.4",
+    "copy-webpack-plugin": "^6.3.2",
+    "css-loader": "^3.4.2",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "ts-loader": "^4.0.1",
+    "typescript": "^3.8.0",
+    "webpack": "^5.9.0",
+    "webpack-cli": "^4.2.0",
+    "webpack-merge": "^5.4.0"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/icons": "^4.11.2",
+    "bezier-easing": "^2.1.0",
+    "date-fns": "^2.16.1",
+    "immer": "^8.0.0",
+    "lodash": "^4.17.20",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-use": "^15.3.4"
+  }
+}

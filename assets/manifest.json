@@ -1,0 +1,24 @@
+{
+    "manifest_version": 2,
+    "name": "Youtube Memo",
+    "description": "Write something watching Youtube videos.",
+    "version": "1.0.0",
+    "background": {
+        "scripts": [
+            "background.js"
+        ],
+        "persistent": false
+    },
+    "icons": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    },
+    "permissions": [
+        "tabs",
+        "storage",
+        "webNavigation",
+        "bookmarks",
+        "https://www.youtube.com/"
+    ]
+}
