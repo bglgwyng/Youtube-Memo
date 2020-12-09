@@ -1,13 +1,13 @@
-# Chrome Extension (built with TypeScript + React)
+# YouTube Memo
 
-> This project is a boilerplate project to allow you to quickly build chrome extensions using TypeScript and React.
+> Write something watching YouTube videos.
 
 ## Building
 
 1.  Clone repo
-2.  `npm i`
-3.  `npm run dev` to compile once or `npm run watch` to run the dev task in watch mode
-4.  `npm run build` to build a production (minified) version
+2.  `yarn`
+3.  `yarn run dev` to compile once or `yarn run watch` to run the dev task in watch mode
+4.  `yarn run build` to build a production (minified) version
 
 ## Installation
 
