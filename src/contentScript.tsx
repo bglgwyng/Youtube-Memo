@@ -20,7 +20,7 @@ import produce from "immer";
 
 import { waitFor, formatVideoTime, useSmoothScroll } from "./utils";
 
-console.log("Youtube Memo is running");
+console.log("YouTube Memo is running");
 
 type Memo = {
   notes: {
@@ -48,9 +48,9 @@ type Memo = {
 
   window.onbeforeunload = flushComments.flush;
 
-  if ((window as any).$destroyYoutubeMemoScript) {
-    (window as any).$destroyYoutubeMemoScript();
-    delete (window as any).$destroyYoutubeMemoScript;
+  if ((window as any).$destroyYouTubeMemoScript) {
+    (window as any).$destroyYouTubeMemoScript();
+    delete (window as any).$destroyYouTubeMemoScript;
   }
 
   const secondaryInner = await waitFor<HTMLDivElement>("#secondary-inner");
@@ -211,7 +211,7 @@ type Memo = {
   }
   ReactDOM.render(<App />, container);
 
-  (window as any).$destroyYoutubeMemoScript = () => {
+  (window as any).$destroyYouTubeMemoScript = () => {
     ReactDOM.unmountComponentAtNode(container);
   };
 })();

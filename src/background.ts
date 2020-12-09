@@ -25,7 +25,7 @@ type App = {
     }
     if (!bookmarkFolder) {
         bookmarkFolder = await new Promise((resolve) => chrome.bookmarks.create(
-            { 'title': 'Youtube Memo' },
+            { 'title': 'YouTube Memo' },
             function (newFolder) {
                 console.log("Bookmark Folder is created")
                 chrome.storage.local.set({ app: { bookmarkFolderId: newFolder.id } }, () => resolve(newFolder))

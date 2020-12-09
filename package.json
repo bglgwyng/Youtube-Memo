@@ -1,7 +1,7 @@
 {
   "name": "youtube-memo",
   "version": "1.1.0",
-  "description": "Write something watching Youtube videos.",
+  "description": "Write something watching YouTube videos.",
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "dev": "webpack --config webpack.dev.js",
