@@ -31,3 +31,9 @@ jobs:
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: build # will run `yarn build` command
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist
