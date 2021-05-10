@@ -1,24 +1,25 @@
 /// <reference types="@types/resize-observer-browser">
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import ReactDOM from "react-dom";
-
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 // TODO: Shake Tree!
 import Link from "@material-ui/core/Link";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Box from "@material-ui/core/Box";
-import IconButton from "@material-ui/core/IconButton";
-
 import DeleteIcon from "@material-ui/icons/Delete";
 import NoteAdd from "@material-ui/icons/NoteAdd";
-
-import debounce from "lodash/debounce";
 import produce from "immer";
+import debounce from "lodash/debounce";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
+import { formatVideoTime, useSmoothScroll, waitFor } from "./utils";
 
-import { waitFor, formatVideoTime, useSmoothScroll } from "./utils";
+
+
+
 
 console.log("YouTube Memo is running");
 
@@ -68,6 +69,14 @@ type Memo = {
 
   const player = await waitFor("#primary #player");
   const video = await waitFor<HTMLVideoElement>("#player video");
+
+
+  const isDarkMode = Boolean(document.documentElement.getAttribute("dark"));
+  const darkTheme = createMuiTheme({
+    palette: {
+      type: isDarkMode ? "dark" : "light",
+    },
+  });
 
   function App() {
     const [comments, setComments] = useState<Memo["notes"]>(initialComments.notes);
@@ -159,55 +168,61 @@ type Memo = {
     const scroll = useSmoothScroll(listRef.current);
 
     return (
-      <div style={{ display: "flex", flexDirection: "column", maxHeight, overflow: "hidden" }}>
-        <Button
-          fullWidth
-          onClick={() => addComment(video.currentTime)} startIcon={<NoteAdd />}>Add Note</Button>
-        <List ref={listRef as any} style={{ padding: 0, overflowY: "auto" }}>
-          {comments.map((i, index) =>
-            <ListItem
-              key={i.time}
-              ref={(el) => itemsRef.current[index] = el}
-              selected={focused === undefined ? selected === index : focused === index}>
-              <Link
-                href="#"
-                variant="caption"
-                onClick={(e) => {
-                  video.currentTime = i.time;
-                  e.preventDefault();
-                }}>
-                {formatVideoTime(i.time)}
-              </Link>
-              <Box width={1} marginLeft={1}>
-                <TextField inputRef={(el) => inputsRef.current[index] = el}
-                  fullWidth
-                  autoFocus={selected === index}
-                  value={i.content}
-                  onFocus={() => setFocused(index)}
-                  onBlur={() => setFocused(undefined)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      addComment(video.currentTime);
-                    }
-                  }}
-                  onChange={(e) => handleChange(index, e.currentTarget.value)} />
-              </Box>
-              <ListItemSecondaryAction>
-                <IconButton
-                  tabIndex={-1}
-                  edge="end"
-                  aria-label="delete"
-                  onClick={() =>
-                    setComments(produce(($) => {
-                      $.splice(index, 1);
-                    }, comments))}>
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          )}
-        </List>
-      </div>)
+      <ThemeProvider theme={darkTheme}>
+        <div style={{ display: "flex", flexDirection: "column", maxHeight, overflow: "hidden" }}>
+          <Button
+            fullWidth
+            onClick={() => addComment(video.currentTime)} startIcon={<NoteAdd />}>
+            Add Note
+        </Button>
+          <List ref={listRef as any} style={{ padding: 0, overflowY: "auto" }}>
+            {comments.map((i, index) =>
+              <ListItem
+                key={i.time}
+                ref={(el) => itemsRef.current[index] = el}
+                selected={focused === undefined ? selected === index : focused === index}>
+                <Link
+                  href="#"
+                  variant="caption"
+                  onClick={(e) => {
+                    video.currentTime = i.time;
+                    e.preventDefault();
+                  }}>
+                  {formatVideoTime(i.time)}
+                </Link>
+                <Box width={1} marginLeft={1}>
+                  <TextField
+                    inputRef={(el) => inputsRef.current[index] = el}
+                    style={{ color: "white" }}
+                    fullWidth
+                    autoFocus={selected === index}
+                    value={i.content}
+                    onFocus={() => setFocused(index)}
+                    onBlur={() => setFocused(undefined)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        addComment(video.currentTime);
+                      }
+                    }}
+                    onChange={(e) => handleChange(index, e.currentTarget.value)} />
+                </Box>
+                <ListItemSecondaryAction>
+                  <IconButton
+                    tabIndex={-1}
+                    edge="end"
+                    aria-label="delete"
+                    onClick={() =>
+                      setComments(produce(($) => {
+                        $.splice(index, 1);
+                      }, comments))}>
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+            )}
+          </List>
+        </div>
+      </ThemeProvider>)
   }
   ReactDOM.render(<App />, container);
 
